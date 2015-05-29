@@ -5,6 +5,7 @@ import rdflib
 
 filename = "/Users/brendanshort/Dropbox/Harvard work/rdf_uri_test.txt"
 
+# May need error handling to process full list - seems to break on 404
 def readuris():
     with open(filename) as f:
         uriList = f.read().splitlines()
