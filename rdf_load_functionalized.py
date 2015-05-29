@@ -1,7 +1,9 @@
 import rdflib.plugins.sparql as sparql
 import rdflib
 
-filename = "C:\\Users\\short\\Desktop\\Projects\\Linked Data projects\\Anthropology theses\\rdf_uri_test.txt"
+#filename = "C:\\Users\\short\\Desktop\\Projects\\Linked Data projects\\Anthropology theses\\rdf_uri_test.txt"
+
+filename = "/Users/brendanshort/Dropbox/Harvard work/rdf_uri_test.txt"
 
 def readuris():
     with open(filename) as f:
@@ -21,11 +23,15 @@ def makeGraph():
 def testQuery():
     g = makeGraph()
 
-    q = sparql.prepareQuery('SELECT ?o WHERE {?s schema:name ?o}', initNs = { "schema": "http://schema.org/" })
+    q = sparql.prepareQuery('SELECT ?o WHERE {?s schema:name ?o} LIMIT 20', initNs = { "schema": "http://schema.org/" })
 
     myquery = g.query(q)
+    
+    return myquery
 
-    for row in myquery:
+   
+
+myquery = testQuery()
+
+for row in myquery:
         print row
-
-testQuery()
