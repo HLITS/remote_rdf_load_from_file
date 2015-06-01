@@ -19,26 +19,30 @@ def readuris():
 	
 uris = readuris()
 
+def makeGraph():
+	for uri in uris:
 
-for uri in uris:
-
-	r = requests.get(uri)
-	
-	status = r.status_code
-	
-	if status == 200:
-		loadCount += 1
-		g.parse(data=r.text, format="application/rdf+xml")
-	else:
-		errCount += 1
-		message = "Error " + status + " " + uri
-		errLog.append(message)
+		r = requests.get(uri)
 		
-print str(loadCount) + " were loaded correctly"
-print str(errCount) + " had errors"
-for item in errLog:
-	print item
+		status = r.status_code
+		
+		if status == 200:
+			loadCount += 1
+			g.parse(data=r.text, format="application/rdf+xml")
+		else:
+			errCount += 1
+			message = "Error " + status + " " + uri
+			errLog.append(message)
+		
+	print str(loadCount) + " were loaded correctly"
+	print str(errCount) + " had errors"
+	for item in errLog:
+		print item
 	
-# g.serialize(destination="C:\\Users\\short\\Desktop\\test.rdf")
+	return g
+	
+g = makeGraph()
+	
+g.serialize(destination="C:\\Users\\short\\Desktop\\test.rdf")
 # serializes into an RDF file (or another format if desired), can load into another triplestore
 # might have problems with the LC errors - actually doesn't seem to
