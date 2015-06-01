@@ -3,11 +3,12 @@ import rdflib.plugins.sparql as sparql
 import rdflib
 
 
-log = []
+errLog = []
 g = rdflib.Graph()
 loadCount = 0
 errCount = 0
 filename = "C:\\Users\\short\\Desktop\\Projects\\Linked Data projects\\Anthropology theses\\rdf_uri_test.txt"
+
 
 def readuris():
     with open(filename) as f:
@@ -16,7 +17,8 @@ def readuris():
 
     return uriList
 	
-uris = readuris()	
+uris = readuris()
+
 
 for uri in uris:
 
@@ -30,9 +32,13 @@ for uri in uris:
 	else:
 		errCount += 1
 		message = "Error " + status + " " + uri
-		log.append(message)
+		errLog.append(message)
 		
 print str(loadCount) + " were loaded correctly"
 print str(errCount) + " had errors"
-for item in log:
+for item in errLog:
 	print item
+	
+# g.serialize(destination="C:\\Users\\short\\Desktop\\test.rdf")
+# serializes into an RDF file (or another format if desired), can load into another triplestore
+# might have problems with the LC errors - actually doesn't seem to
